@@ -1,0 +1,52 @@
+#Instalação da biblioteca pulp
+pip install pulp
+
+# --- Problema ---
+# Minimize : z = X11 * 2.32 + X12 * 2.36 + X13 * 2.41 + X14 * 2.45 + X15 * 2.48 + X21 * 2.39 + X22 * 2.37 + X23 * 2.43 + X24 * 2.47 + X25 * 2.5
+# Subject to the constraints:
+# X11 + X21 >= 33
+# X12 + X22 >= 5
+# X13 + X23 >= 38
+# X14 + X24 >= 10
+# X15 + X25 >= 3
+# X11 + X12 + X13 + X14 + X15 <= 50
+# X21 + X22 + X23 + X24 + X25 <= 49
+# X11, X12, X13, X14, X15, X21, X22, X23, X24, X25 >= 0 
+
+# importação da biblioteca pulp como p
+import pulp as p
+  
+# Criar um problema de minimização linear
+Lp_prob = p.LpProblem('Problema', p.LpMinimize) 
+  
+# Criar as variaveis do problema
+X11 = p.LpVariable("X11", lowBound = 0)   # Create a variable X11 >= 0
+X12 = p.LpVariable("X12", lowBound = 0)   # Create a variable X12 >= 0
+X13 = p.LpVariable("X13", lowBound = 0)   # Create a variable X13 >= 0
+X14 = p.LpVariable("X14", lowBound = 0)   # Create a variable X14 >= 0
+X15 = p.LpVariable("X15", lowBound = 0)   # Create a variable X15 >= 0
+X21 = p.LpVariable("X21", lowBound = 0)   # Create a variable X21 >= 0
+X22 = p.LpVariable("X22", lowBound = 0)   # Create a variable X22 >= 0
+X23 = p.LpVariable("X23", lowBound = 0)   # Create a variable X23 >= 0
+X24 = p.LpVariable("X24", lowBound = 0)   # Create a variable X24 >= 0
+X25 = p.LpVariable("X25", lowBound = 0)   # Create a variable X25 >= 0
+
+# Função Objetivo
+Lp_prob += X11 * 2.32 + X12 * 2.36 + X13 * 2.41 + X14 * 2.45 + X15 * 2.48 + X21 * 2.39 + X22 * 2.37 + X23 * 2.43 + X24 * 2.47 + X25 * 2.5
+# Constraints:
+Lp_prob += X11 + X21 >= 33
+Lp_prob += X12+X22>=5
+Lp_prob += X13+X23>=38
+Lp_prob += X14+X24>=10
+Lp_prob += X15+X25>=3
+Lp_prob += X11+X12+X13+X14+X15 <= 50
+Lp_prob += X21+X22+X23+X24+X25 <= 49
+
+# Mostrar o problema
+print(Lp_prob)
+  
+status = Lp_prob.solve()   # Solucionar
+print(p.LpStatus[status])  # The solution status
+  
+# Printing the final solution
+print(p.value(X11), p.value(X12), p.value(X13), p.value(X14), p.value(X15), p.value(X21),  p.value(X22), p.value(X23), p.value(X24),  p.value(X25), p.value(Lp_prob.objective))
