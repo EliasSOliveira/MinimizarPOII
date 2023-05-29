@@ -1,5 +1,5 @@
 #Instalação da biblioteca pulp
-pip install pulp
+!pip install pulp
 
 # --- Problema ---
 # Minimize : z = X11 * 2.32 + X12 * 2.36 + X13 * 2.41 + X14 * 2.45 + X15 * 2.48 + X21 * 2.39 + X22 * 2.37 + X23 * 2.43 + X24 * 2.47 + X25 * 2.5
